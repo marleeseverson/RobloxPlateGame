@@ -33,6 +33,19 @@ export class Plate {
 		return this.orginalScale;
 	}
 
+	public getRandomPointOnPlate(): Vector3 {
+		const position = this.plateModel.PrimaryPart?.Position;
+		const size = this.plateModel.PrimaryPart?.Size;
+
+		if (position && size) {
+			const randomX = (math.random() - 0.5) * size.X;
+			const randomZ = (math.random() - 0.5) * size.Z;
+
+			return new Vector3(position.X + randomX, position.Y + size.Y / 2, position.Z + randomZ);
+		}
+		return Vector3.one;
+	}
+
 	public destroyPlate(): void {
 		this.plateModel.Destroy();
 	}
