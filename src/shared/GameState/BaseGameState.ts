@@ -1,4 +1,4 @@
-import { GameStateMachine } from "./GameStateMachine";
+import { GameStateMachine, GameStateType } from "./GameStateMachine";
 
 export abstract class BaseGameState {
 	protected name: string;
@@ -7,6 +7,7 @@ export abstract class BaseGameState {
 	abstract onUpdate(dt: number): void;
 	abstract getNextState(): BaseGameState;
 	abstract onExit(): void;
+	abstract getType(): GameStateType;
 
 	constructor(stateMachine: GameStateMachine) {
 		this.name = "";

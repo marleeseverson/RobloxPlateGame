@@ -1,5 +1,5 @@
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine } from "./GameStateMachine";
+import { GameStateMachine, GameStateType } from "./GameStateMachine";
 
 export class InRoundGameState extends BaseGameState {
 	private timePassedInState: number;
@@ -20,5 +20,8 @@ export class InRoundGameState extends BaseGameState {
 	}
 	onExit(): void {
 		//
+	}
+	getType(): GameStateType {
+		return GameStateType.Playing;
 	}
 }

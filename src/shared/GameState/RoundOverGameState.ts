@@ -1,6 +1,6 @@
 import { Players } from "@rbxts/services";
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine } from "./GameStateMachine";
+import { GameStateMachine, GameStateType } from "./GameStateMachine";
 
 export class RoundOverGameState extends BaseGameState {
 	private timePassedInState: number;
@@ -24,5 +24,8 @@ export class RoundOverGameState extends BaseGameState {
 	}
 	onExit(): void {
 		//
+	}
+	getType(): GameStateType {
+		return GameStateType.RoundOver;
 	}
 }

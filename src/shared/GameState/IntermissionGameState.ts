@@ -1,6 +1,6 @@
 import { Players } from "@rbxts/services";
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine } from "./GameStateMachine";
+import { GameStateMachine, GameStateType } from "./GameStateMachine";
 import { GameEvents } from "shared/gameEvents";
 import Remotes from "shared/remotes";
 
@@ -36,5 +36,8 @@ export class IntermissionGameState extends BaseGameState {
 	}
 	onExit(): void {
 		this.isActive = false;
+	}
+	getType(): GameStateType {
+		return GameStateType.Intermission;
 	}
 }
