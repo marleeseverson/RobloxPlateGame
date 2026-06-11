@@ -12,5 +12,6 @@ export abstract class BaseGameState {
 	constructor(stateMachine: GameStateMachine) {
 		this.name = "";
 		this.stateMachine = stateMachine;
+		//
 	}
 }
