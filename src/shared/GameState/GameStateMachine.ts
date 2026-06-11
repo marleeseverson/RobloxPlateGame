@@ -10,6 +10,7 @@ export enum GameStateType {
 	WaitingForMorePlayers,
 	Intermission,
 	Playing,
+	RoundOver,
 }
 
 export class GameStateMachine {
