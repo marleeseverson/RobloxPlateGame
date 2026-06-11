@@ -9,6 +9,7 @@ import { Plate } from "shared/plate";
 import { CountdownEventState } from "./CountdownEventState";
 import { WaitingEventState } from "./WaitingEventState";
 import { FiringEventState } from "./FiringGameState";
+import { GameStateType } from "shared/GameState/GameStateType";
 
 export class EventStateMachine {
 	private currentEventState: BaseEventState;
@@ -36,6 +37,12 @@ export class EventStateMachine {
 		print("start");
 		this.tryTransitionToNextState(this.idleState);
 		Remotes.Server.Get("OnGameEventStateChanged").SendToAllPlayers(this.getCurrentStateType());
+		Signals.OnGameStateChanged.Connect((newStateType) => {
+			if (newStateType === GameStateType.RoundOver) {
+				print("Going to idle");
+				this.tryTransitionToNextState(this.idleState);
+			}
+		});
 	}
 
 	public update(dt: number): void {
@@ -52,6 +59,7 @@ export class EventStateMachine {
 			this.currentEventState = newState;
 			Remotes.Server.Get("OnGameEventStateChanged").SendToAllPlayers(this.getCurrentStateType());
 			Signals.OnEventStateChanged.Fire(this.getCurrentStateType());
+
 			this.currentEventState.onEnter();
 		}
 		return true;

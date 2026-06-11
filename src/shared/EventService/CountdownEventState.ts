@@ -1,4 +1,4 @@
-import { GameStateType } from "shared/GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import { BaseEventState } from "./BaseEventState";
 import type { EventStateMachine } from "./EventStateMachine";
 import { EventStateType } from "./EventStateType";
@@ -23,7 +23,7 @@ export class CountdownEventState extends BaseEventState {
 		this.countdown -= dt;
 		const roundedTime = math.round(this.countdown * 10) / 10;
 		if (roundedTime !== this.lastRoundedTime) {
-			print("Rounded time : " + roundedTime);
+			//print("Rounded time : " + roundedTime);
 			Remotes.Server.Get("OnGameEventTimerUpdated").SendToAllPlayers(roundedTime);
 			this.lastRoundedTime = roundedTime;
 		}

@@ -1,4 +1,4 @@
-import { GameStateType } from "shared/GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import { BaseEventState } from "./BaseEventState";
 import type { EventStateMachine } from "./EventStateMachine";
 import { EventStateType } from "./EventStateType";
@@ -18,6 +18,7 @@ export class IdleEventState extends BaseEventState {
 
 	onEnter(): void {
 		print("Idle event entered");
+		this.isActive = false;
 	}
 	onUpdate(dt: number): void {
 		//

@@ -1,6 +1,7 @@
-import { Players } from "@rbxts/services";
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine, GameStateType } from "./GameStateMachine";
+import { GameStateType } from "./GameStateType";
+
+import type { GameStateMachine } from "./GameStateMachine";
 import { GameEvents } from "shared/gameEvents";
 import Remotes from "shared/remotes";
 

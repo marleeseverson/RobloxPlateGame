@@ -1,4 +1,4 @@
-import { GameStateType } from "shared/GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import { BaseEventState } from "./BaseEventState";
 import type { EventStateMachine } from "./EventStateMachine";
 import { EventStateType } from "./EventStateType";

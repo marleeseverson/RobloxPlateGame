@@ -1,26 +1,29 @@
 import { Players } from "@rbxts/services";
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine, GameStateType } from "./GameStateMachine";
+import type { GameStateMachine } from "./GameStateMachine";
+import { GameStateType } from "./GameStateType";
 
 export class RoundOverGameState extends BaseGameState {
-	private timePassedInState: number;
+	private roundEndTimer = 5;
 
 	constructor(stateMachine: GameStateMachine) {
 		super(stateMachine);
-		this.timePassedInState = 0;
 	}
 
 	onEnter(): void {
 		print("Round Over");
+		this.roundEndTimer = 5;
 	}
 	onUpdate(dt: number): void {
-		this.timePassedInState += dt;
+		this.roundEndTimer -= dt;
+		print("Round end timer : " + this.roundEndTimer);
 	}
 	getNextState(): BaseGameState {
-		if (Players.GetPlayers().size() > 1) {
-			return this.stateMachine.getIntermissionGameState();
+		if (this.roundEndTimer <= 0) {
+			print("Waiting for players after round ended");
+			return this.stateMachine.getWaitingForPlayersGameState();
 		}
-		return this.stateMachine.getWaitingForPlayersGameState();
+		return this.stateMachine.getRoundOverState();
 	}
 	onExit(): void {
 		//

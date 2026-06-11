@@ -1,10 +1,25 @@
 import { Teams, Players } from "@rbxts/services";
 import { GameEvents } from "shared/gameEvents";
+import { GameStateType } from "shared/GameState/GameStateType";
 import PlateService from "shared/PlateService";
+import { Signals } from "shared/signals";
 import { lobbyTeam, playingTeam } from "shared/teams";
 
 Players.PlayerAdded.Connect((player) => {
 	player.Team = lobbyTeam;
+});
+
+Signals.OnPlayerDeath.Connect((player) => {
+	if (player.Team === playingTeam) {
+		player.Team = lobbyTeam;
+	}
+});
+
+Signals.OnGameStateChanged.Connect((newStateType) => {
+	if (newStateType === GameStateType.RoundOver) {
+		changePlayingPlayersToLobby();
+		teleportPlayersToLobby();
+	}
 });
 
 function teleportPlayer(player: Player, position: Vector3) {
@@ -30,16 +45,11 @@ function teleportPlayersToPlayArea() {
 			}
 		}
 	}
-
-	// for (const player of Players.GetPlayers()) {
-	// 	if (player.Team === playingTeam["team"]) {
-	// 		const character = player.Character;
-	// 		if (character) {
-	// 			const hrp = character.WaitForChild("HumanoidRootPart") as BasePart;
-	// 			hrp.CFrame = new CFrame(0, 100, 0);
-	// 		}
-	// 	}
-	// }
+}
+function teleportPlayersToLobby() {
+	for (const player of Players.GetPlayers()) {
+		teleportPlayer(player, new Vector3(0, 10, 0));
+	}
 }
 function changeLobbyPlayersToPlaying(): void {
 	for (const player of Players.GetPlayers()) {
@@ -48,6 +58,14 @@ function changeLobbyPlayersToPlaying(): void {
 		}
 	}
 	GameEvents.OnPlayersAddedToPlayingTeam.Fire();
+}
+
+function changePlayingPlayersToLobby(): void {
+	for (const player of Players.GetPlayers()) {
+		if (player.Team === playingTeam) {
+			player.Team = lobbyTeam;
+		}
+	}
 }
 
 GameEvents.OnPlayerPlatesCreated.Event.Connect(() => {

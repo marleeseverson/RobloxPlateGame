@@ -3,15 +3,10 @@ import { InRoundGameState } from "./InRoundGameState";
 import { BaseGameState } from "./BaseGameState";
 import Signal from "@rbxts/signal";
 import Remotes from "shared/remotes";
+import { GameStateType } from "./GameStateType";
 import { WaitingForPlayersGameState } from "./WaitingForPlayersState";
 import { Signals } from "shared/signals";
-
-export enum GameStateType {
-	WaitingForMorePlayers,
-	Intermission,
-	Playing,
-	RoundOver,
-}
+import { RoundOverGameState } from "./RoundOverGameState";
 
 export class GameStateMachine {
 	OnGameStateChanged = new Signal<(newState: BaseGameState) => void>();
@@ -19,12 +14,14 @@ export class GameStateMachine {
 	private waitingForPlayersState: WaitingForPlayersGameState;
 	private intermissionState: IntermissionGameState;
 	private inRoundState: InRoundGameState;
+	private roundOverState: RoundOverGameState;
 	private intermissionTime: number;
 
 	constructor() {
 		this.waitingForPlayersState = new WaitingForPlayersGameState(this);
 		this.intermissionState = new IntermissionGameState(this);
 		this.inRoundState = new InRoundGameState(this);
+		this.roundOverState = new RoundOverGameState(this);
 		this.currentGameState = undefined as any;
 		this.intermissionTime = 3;
 		this.start();
@@ -40,7 +37,7 @@ export class GameStateMachine {
 		if (!this.currentGameState) return;
 		//print("state changed to " + this.getCurrentStateType());
 
-		//this.currentGameState.onUpdate(dt);
+		this.currentGameState.onUpdate(dt);
 		this.tryTransitionToNextState(this.currentGameState.getNextState());
 	}
 
@@ -71,16 +68,11 @@ export class GameStateMachine {
 	public getIntermissionTime(): number {
 		return this.intermissionTime;
 	}
+	public getRoundOverState(): RoundOverGameState {
+		return this.roundOverState;
+	}
 
 	public getCurrentStateType(): GameStateType {
-		if (this.currentGameState instanceof IntermissionGameState) {
-			return GameStateType.Intermission;
-		} else if (this.currentGameState instanceof InRoundGameState) {
-			return GameStateType.Playing;
-		} else if (this.currentGameState instanceof WaitingForPlayersGameState) {
-			return GameStateType.WaitingForMorePlayers;
-		} else {
-			return undefined as any;
-		}
+		return this.currentGameState.getType();
 	}
 }

@@ -1,6 +1,7 @@
 import { Players } from "@rbxts/services";
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine, GameStateType } from "./GameStateMachine";
+import type { GameStateMachine } from "./GameStateMachine";
+import { GameStateType } from "./GameStateType";
 
 export class WaitingForPlayersGameState extends BaseGameState {
 	private timePassedInState: number;

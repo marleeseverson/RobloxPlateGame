@@ -5,7 +5,7 @@ import { Plate } from "../plate";
 import PlateService from "../PlateService";
 import { Signals } from "../signals";
 import { EventStateMachine } from "./EventStateMachine";
-import { GameStateType } from "shared/GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import { Events } from "./Events";
 
 class EventService {

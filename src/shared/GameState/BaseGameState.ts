@@ -1,4 +1,5 @@
-import { GameStateMachine, GameStateType } from "./GameStateMachine";
+import { GameStateType } from "./GameStateType";
+import type { GameStateMachine } from "./GameStateMachine";
 
 export abstract class BaseGameState {
 	protected name: string;

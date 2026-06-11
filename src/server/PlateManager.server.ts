@@ -1,11 +1,17 @@
+import { GameStateType } from "shared/GameState/GameStateType";
 import PlateService = require("shared/PlateService");
 import { GameEvents } from "shared/gameEvents";
 import { Signals } from "shared/signals";
 
-GameEvents.OnInRoundStateEntered.Event.Connect(() => {
-	PlateService.createGridObjects();
-	PlateService.createPlates();
-	GameEvents.OnPlayerPlatesCreated.Fire();
+Signals.OnGameStateChanged.Connect((newStateType) => {
+	if (newStateType === GameStateType.Playing) {
+		PlateService.createGridObjects();
+		PlateService.createPlates();
+		GameEvents.OnPlayerPlatesCreated.Fire();
+	}
+	if (newStateType === GameStateType.RoundOver) {
+		PlateService.clearAllPlates();
+	}
 });
 
 Signals.OnPlayerDeath.Connect((player: Player) => {

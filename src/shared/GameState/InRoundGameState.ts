@@ -1,5 +1,9 @@
 import { BaseGameState } from "./BaseGameState";
-import { GameStateMachine, GameStateType } from "./GameStateMachine";
+import { GameStateType } from "./GameStateType";
+import type { GameStateMachine } from "./GameStateMachine";
+import { playingTeam } from "shared/teams";
+import { Players } from "@rbxts/services";
+import Remotes from "shared/remotes";
 
 export class InRoundGameState extends BaseGameState {
 	private timePassedInState: number;
@@ -16,6 +20,13 @@ export class InRoundGameState extends BaseGameState {
 		this.timePassedInState += dt;
 	}
 	getNextState(): BaseGameState {
+		const numPlayersLeft = playingTeam.GetPlayers().size();
+		print("num players left : " + numPlayersLeft);
+		if (numPlayersLeft === 1) {
+			const playerName = playingTeam.GetPlayers()[0].Name;
+			Remotes.Server.Get("OnPlayerWin").SendToAllPlayers(playerName);
+			return this.stateMachine.getRoundOverState();
+		}
 		return this.stateMachine.getInRoundState();
 	}
 	onExit(): void {

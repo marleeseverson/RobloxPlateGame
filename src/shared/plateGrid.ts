@@ -54,4 +54,8 @@ export class PlateGrid {
 			this.gridStartLocation.Position.Z + gridPos.Y * this.cellSize,
 		);
 	}
+
+	public clearGridObjects() {
+		this.grid = [];
+	}
 }

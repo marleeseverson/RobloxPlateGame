@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "@rbxts/react";
 import { BaseEvent } from "shared/Events/BaseEvent";
 import { PlateShrinkEvent } from "shared/Events/PlateShrinkEvent";
-import { GameStateType } from "shared/GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import Remotes from "shared/remotes";
 import BasicLabel from "./BasicLabel";
 import EventTimerTracker from "./EventTimerTracker";

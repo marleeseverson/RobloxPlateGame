@@ -1,5 +1,5 @@
 import { useEffect, useState } from "@rbxts/react";
-import { GameStateType } from "shared/GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import Remotes from "shared/remotes";
 import React from "@rbxts/react";
 import BasicLabel from "./BasicLabel";

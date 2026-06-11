@@ -67,6 +67,15 @@ class PlateService {
 			}
 		}
 	}
+
+	public clearAllPlates() {
+		for (let i = 0; i < this.activePlates.size(); i++) {
+			const plate = this.activePlates[i];
+			const player = plate.getPlayer();
+			this.removeActivePlate(player);
+		}
+		this.getGrid().clearGridObjects();
+	}
 }
 
 export = new PlateService();

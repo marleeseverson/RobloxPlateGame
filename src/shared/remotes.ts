@@ -1,5 +1,5 @@
 import Net, { Definitions } from "@rbxts/net";
-import { GameStateType } from "./GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import { EventStateType } from "./EventService/EventStateType";
 import { EventType } from "./Events/BaseEvent";
 
@@ -10,6 +10,7 @@ const Remotes = Net.CreateDefinitions({
 	OnGameEventTimerUpdated: Definitions.ServerToClientEvent<[newTime: number]>(),
 	OnGameEventStateChanged: Definitions.ServerToClientEvent<[newEventStateType: EventStateType]>(),
 	OnEventAndPlatesSelected: Definitions.ServerToClientEvent<[eventName: string, targets: string[]]>(),
+	OnPlayerWin: Definitions.ServerToClientEvent<[playerName: string]>(),
 });
 
 export default Remotes;

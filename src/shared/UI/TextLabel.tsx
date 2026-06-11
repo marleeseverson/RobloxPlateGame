@@ -1,6 +1,6 @@
 import React = require("@rbxts/react");
 import { useEffect, useState } from "@rbxts/react";
-import { GameStateType } from "../GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import Remotes from "../remotes";
 import BasicLabel from "./BasicLabel";
 interface TextLabelProps {
@@ -10,6 +10,7 @@ interface TextLabelProps {
 function TextLabel({ text }: TextLabelProps) {
 	const [timeLeft, setTime] = useState(1);
 	const [currentState, setState] = useState(GameStateType.WaitingForMorePlayers);
+	const [winnerName, setWinnerName] = useState("");
 	useEffect(() => {
 		const OnGameStateChanged = Remotes.Client.Get("OnGameStateChanged");
 		const connection1 = OnGameStateChanged.Connect((gameStateType: GameStateType, timeRemaining: number) => {
@@ -20,9 +21,14 @@ function TextLabel({ text }: TextLabelProps) {
 		const connection2 = UpdateTimerUI.Connect((timeLeft: number) => {
 			setTime(timeLeft);
 		});
+		const OnPlayerWin = Remotes.Client.Get("OnPlayerWin");
+		const connection3 = OnPlayerWin.Connect((name) => {
+			setWinnerName(name);
+		});
 		return () => {
 			connection1.Disconnect();
 			connection2.Disconnect();
+			connection3.Disconnect();
 		};
 	}, []);
 
@@ -42,6 +48,9 @@ function TextLabel({ text }: TextLabelProps) {
 			) : undefined}
 			{currentState === GameStateType.Intermission ? (
 				<BasicLabel text={"Starting game in : " + timeLeft} size={new UDim2(1, 0, 1, 0)} />
+			) : undefined}
+			{currentState === GameStateType.RoundOver ? (
+				<BasicLabel text={"Round Over, " + winnerName + " wins!"} size={new UDim2(1, 0, 1, 0)} />
 			) : undefined}
 		</frame>
 	);

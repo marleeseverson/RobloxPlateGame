@@ -2,7 +2,7 @@ import Signal from "@rbxts/signal";
 import { BaseGameState } from "./GameState/BaseGameState";
 import { BaseEvent } from "./Events/BaseEvent";
 import { EventStateType } from "./EventService/EventStateType";
-import { GameStateType } from "./GameState/GameStateMachine";
+import { GameStateType } from "shared/GameState/GameStateType";
 import { Plate } from "./plate";
 
 const OnPlayerDeath = new Signal<(player: Player) => void>();
