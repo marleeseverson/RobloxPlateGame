@@ -35,7 +35,7 @@ export class CountdownEventState extends BaseEventState {
 		return this.stateMachine.getCountdownEventState();
 	}
 	onExit(): void {
-		//
+		Remotes.Server.Get("OnPlateEventsFinalized").SendToAllPlayers(this.stateMachine.getPlateModels());
 	}
 	//
 	getStateType(): EventStateType {

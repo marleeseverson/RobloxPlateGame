@@ -20,6 +20,7 @@ export class EventStateMachine {
 	private waitingState: WaitingEventState;
 	private currentEvent: BaseEvent;
 	private currentPlateTargets: Plate[];
+	private plateModels: Model[];
 
 	constructor() {
 		this.idleState = new IdleEventState(this);
@@ -30,6 +31,7 @@ export class EventStateMachine {
 		this.currentEventState = undefined as any;
 		this.currentEvent = undefined as any;
 		this.currentPlateTargets = [];
+		this.plateModels = [];
 		this.start();
 	}
 
@@ -102,8 +104,18 @@ export class EventStateMachine {
 			Remotes.Server.Get("OnEventAndPlatesSelected").SendToAllPlayers(
 				this.currentEvent.getName(),
 				this.getTargetNames(),
+
+				this.getPlateModels(),
 			);
 		}
+	}
+
+	public getPlateModels(): Model[] {
+		const models: Model[] = [];
+		for (const plate of this.getCurrentTargets()) {
+			models.push(plate.getModel());
+		}
+		return models;
 	}
 
 	private getTargetNames(): string[] {

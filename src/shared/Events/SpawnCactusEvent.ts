@@ -1,6 +1,6 @@
 import { Plate } from "shared/plate";
 import { BaseEvent, EventType } from "./BaseEvent";
-import { TweenService, Workspace } from "@rbxts/services";
+import { Players, TweenService, Workspace } from "@rbxts/services";
 import { ServerStorage } from "@rbxts/services";
 
 export class SpawnCactusEvent extends BaseEvent {
@@ -16,7 +16,7 @@ export class SpawnCactusEvent extends BaseEvent {
 		const spawnPosition = new Vector3(platePos.X, platePos.Y - this.spawnLowerOffset, platePos.Z);
 		const targetPosition = new Vector3(platePos.X, platePos.Y + 3, platePos.Z);
 		const cactus = this.cactusTemplate.Clone();
-		cactus.Parent = plate.getModel();
+		cactus.Parent = Workspace;
 
 		cactus.PivotTo(new CFrame(spawnPosition));
 
@@ -39,13 +39,22 @@ export class SpawnCactusEvent extends BaseEvent {
 
 	private connectDamage(cactusModel: Model) {
 		const parts = cactusModel.GetDescendants();
+		const lastDamageMap = new Map<Player, number>();
 
 		for (const descendant of parts) {
 			if (descendant.IsA("BasePart")) {
 				descendant.Touched.Connect((other) => {
 					const humanoid = other.Parent?.FindFirstChild("Humanoid") as Humanoid;
 					if (humanoid) {
-						humanoid.TakeDamage(2);
+						const character = humanoid.Parent;
+						const player = Players.GetPlayerFromCharacter(character);
+						if (player) {
+							const currentTime = os.clock();
+							if (currentTime - (lastDamageMap.get(player) ?? 0) >= 1) {
+								lastDamageMap.set(player, currentTime);
+								humanoid.TakeDamage(10);
+							}
+						}
 					}
 				});
 			}

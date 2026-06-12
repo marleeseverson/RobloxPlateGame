@@ -12,7 +12,9 @@ function BasicLabel({ text, size }: TextLabelProps) {
 			TextColor3={new Color3(1, 1, 1)}
 			//AnchorPoint={new Vector2(0.5, 0.5)}
 			Size={size}
+			TextXAlignment={Enum.TextXAlignment.Center}
 			BackgroundTransparency={1}
+			Font={Enum.Font.Code}
 		></textlabel>
 	);
 }

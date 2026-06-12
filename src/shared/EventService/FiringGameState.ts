@@ -3,6 +3,7 @@ import { BaseEventState } from "./BaseEventState";
 import type { EventStateMachine } from "./EventStateMachine";
 import { EventStateType } from "./EventStateType";
 import { Signals } from "shared/signals";
+import Remotes from "shared/remotes";
 
 export class FiringEventState extends BaseEventState {
 	private baseFiringTime = 0.5;

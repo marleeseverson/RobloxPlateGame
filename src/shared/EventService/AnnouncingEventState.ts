@@ -16,6 +16,8 @@ export class AnnouncingEventState extends BaseEventState {
 
 	onEnter(): void {
 		print("Announce Event State entered");
+		Remotes.Server.Get("OnPlateEventsFinalized").SendToAllPlayers(this.stateMachine.getPlateModels());
+
 		this.annouceTime = 2;
 	}
 	onUpdate(dt: number): void {
@@ -27,9 +29,7 @@ export class AnnouncingEventState extends BaseEventState {
 		}
 		return this.stateMachine.getAnnouncingEventState();
 	}
-	onExit(): void {
-		//
-	}
+	onExit(): void {}
 	//
 	getStateType(): EventStateType {
 		return EventStateType.Announcing;

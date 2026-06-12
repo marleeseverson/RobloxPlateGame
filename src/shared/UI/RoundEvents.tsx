@@ -47,13 +47,15 @@ function RoundEvents() {
 			Position={new UDim2(0.5, 0, 0, 10)}
 			AnchorPoint={new Vector2(0.5, 0)}
 			BackgroundColor3={new Color3(0, 0, 0)}
-			BackgroundTransparency={1}
+			BackgroundTransparency={0.5}
 		>
+			<uicorner CornerRadius={new UDim(0, 8)} />
+			<uipadding PaddingLeft={new UDim(0, 15)} />
 			{gameState === GameStateType.Playing && eventState === EventStateType.Countdown ? (
-				<BasicLabel text={eventName + " is happening in " + timeLeft} size={new UDim2(1, 0, 1, 0)} />
+				<BasicLabel text={eventName + " is happening in " + timeLeft} size={new UDim2(0.9, 0, 1, 0)} />
 			) : undefined}
 			{gameState === GameStateType.Playing && eventState === EventStateType.Announcing ? (
-				<BasicLabel text={"Targets: " + targetNames.join(",")} size={new UDim2(1, 0, 1, 0)} />
+				<BasicLabel text={"Targets: " + targetNames.join(",")} size={new UDim2(0.9, 0, 1, 0)} />
 			) : undefined}
 		</frame>
 	);

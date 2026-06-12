@@ -1,12 +1,14 @@
 export class Plate {
 	private plateModel: Model;
 	private player: Player;
+	//private outline: SelectionBox;
 	private currentScale: number;
 	private orginalScale: number;
 
 	constructor(plateModel: Model, player: Player) {
 		this.plateModel = plateModel;
 		this.player = player;
+		//this.outline = undefined as any;
 		this.currentScale = 1;
 		this.orginalScale = 15;
 	}
@@ -29,6 +31,13 @@ export class Plate {
 			this.currentScale = newScale;
 		}
 	}
+	// public setOutline(newOutline: SelectionBox) {
+	// 	this.outline = newOutline;
+	// }
+	// public clearOutline() {
+	// 	this.outline.Destroy();
+	// 	this.outline = undefined as any;
+	// }
 	public getOriginalScale(): number {
 		return this.orginalScale;
 	}
