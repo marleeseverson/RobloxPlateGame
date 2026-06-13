@@ -11,6 +11,7 @@ const OnEventChanged = new Signal<(newEvent: BaseEvent) => void>();
 const OnEventStateChanged = new Signal<(newEventStateType: EventStateType) => void>();
 const RequestRandomEvent = new Signal<(callback: (newEvent: BaseEvent) => void) => void>();
 const RequestRandomPlates = new Signal<(count: number, callback: (plates: Plate[]) => void) => void>();
+const SpawnEnemy = new Signal<(spawnLocation: Vector3) => void>();
 
 export const Signals = {
 	OnPlayerDeath,
@@ -19,4 +20,5 @@ export const Signals = {
 	OnEventStateChanged,
 	RequestRandomEvent,
 	RequestRandomPlates,
+	SpawnEnemy,
 };

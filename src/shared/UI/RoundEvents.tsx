@@ -47,7 +47,7 @@ function RoundEvents() {
 			Position={new UDim2(0.5, 0, 0, 10)}
 			AnchorPoint={new Vector2(0.5, 0)}
 			BackgroundColor3={new Color3(0, 0, 0)}
-			BackgroundTransparency={0.5}
+			BackgroundTransparency={0.1}
 		>
 			<uicorner CornerRadius={new UDim(0, 8)} />
 			<uipadding PaddingLeft={new UDim(0, 15)} />

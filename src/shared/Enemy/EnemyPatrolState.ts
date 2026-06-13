@@ -1,3 +1,4 @@
+import { EnemyAnimationType } from "./EnemyAnimationTypes";
 import { IEnemyState, EnemyState } from "./EnemyState";
 import { EnemyStateMachine } from "./EnemyStateMachine";
 
@@ -6,7 +7,7 @@ const Players = game.GetService("Players");
 
 const PATROL_DISTANCE_MAX = 30;
 const PATROL_DISTANCE_MIN = 10;
-const CHASE_DISTANCE = 15;
+const CHASE_DISTANCE = 12;
 
 export class EnemyPatrolState implements IEnemyState {
 	private currentEnemyStateMachine: EnemyStateMachine;
@@ -35,6 +36,7 @@ export class EnemyPatrolState implements IEnemyState {
 		this.patrolCancelled = false;
 		this.isMoving = false;
 		this.reachedTarget = false;
+		this.currentEnemyStateMachine.playAnimation(EnemyAnimationType.Walk);
 	}
 
 	onGetNextState(): IEnemyState {

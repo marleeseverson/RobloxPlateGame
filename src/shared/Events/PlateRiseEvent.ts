@@ -20,7 +20,8 @@ export class PlateRiseEvent extends BaseEvent {
 			primaryPart.Position.Y + this.studAmount,
 			primaryPart.Position.Z,
 		);
-		const tween = TweenService.Create(primaryPart, tweenInfo, { Position: targetPos });
+		const targetCFrame = new CFrame(targetPos);
+		const tween = TweenService.Create(primaryPart, tweenInfo, { CFrame: targetCFrame });
 		tween.Play();
 	}
 	public triggerPlayerEvent(players: Player[]): void {

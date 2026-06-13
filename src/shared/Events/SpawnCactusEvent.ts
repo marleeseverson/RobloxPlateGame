@@ -16,20 +16,30 @@ export class SpawnCactusEvent extends BaseEvent {
 		const spawnPosition = new Vector3(platePos.X, platePos.Y - this.spawnLowerOffset, platePos.Z);
 		const targetPosition = new Vector3(platePos.X, platePos.Y + 3, platePos.Z);
 		const cactus = this.cactusTemplate.Clone();
+		const primaryPart = cactus.PrimaryPart;
+		if (primaryPart) {
+			primaryPart.Anchored = true;
+		}
 		cactus.Parent = Workspace;
 
 		cactus.PivotTo(new CFrame(spawnPosition));
 
-		const currentPivot = new CFrame(targetPosition);
-		const targetPivot = currentPivot.mul(CFrame.fromEulerAnglesXYZ(0, math.random(0, 360), 0));
+		const targetPivot = new CFrame(targetPosition).mul(CFrame.fromEulerAnglesXYZ(0, math.random(0, 360), 0));
 
-		const primaryPart = cactus.PrimaryPart;
-		if (primaryPart) {
+		const platePrimaryPart = plate.getModel().PrimaryPart;
+		if (primaryPart && platePrimaryPart) {
 			const tweenInfo = new TweenInfo(this.riseTime);
-			const tween = TweenService.Create(primaryPart, tweenInfo, {
-				CFrame: targetPivot,
-			});
+			const tween = TweenService.Create(primaryPart, tweenInfo, { CFrame: targetPivot });
 			tween.Play();
+			tween.Completed.Connect(() => {
+				const weld = new Instance("WeldConstraint");
+				weld.Part0 = platePrimaryPart;
+				weld.Part1 = primaryPart;
+				weld.Parent = platePrimaryPart;
+				if (cactus.PrimaryPart) {
+					cactus.PrimaryPart.Anchored = false;
+				}
+			});
 			this.connectDamage(cactus);
 		}
 	}
