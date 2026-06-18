@@ -19,6 +19,10 @@ export class EnemyAttackState implements IEnemyState {
 		this.timeInState = 0;
 		this.currentEnemyStateMachine.playAnimation(EnemyAnimationType.Slash);
 		print("Attack");
+		let rootPart = this.currentEnemyStateMachine.getNearestPlayerRootPart();
+		let model = rootPart.Parent;
+		let humanoid = model?.FindFirstChildOfClass("Humanoid");
+		humanoid?.TakeDamage(10);
 	}
 
 	onGetNextState(): IEnemyState {

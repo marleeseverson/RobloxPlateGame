@@ -10,6 +10,7 @@ const Players = game.GetService("Players");
 
 export class EnemyStateMachine {
 	onStateChanged = new Signal<(newState: IEnemyState) => void>();
+	onDeath = new Signal<() => void>();
 	private currentState: IEnemyState;
 	private idleState: EnemyIdleState;
 	private patrolState: EnemyPatrolState;
@@ -27,6 +28,14 @@ export class EnemyStateMachine {
 		this.currentState = undefined as any;
 		this.currentAnimationTrack = undefined as any;
 		this.tryTransitionToNextState(this.idleState);
+
+		this.getHumanoid().Died.Connect(() => {
+			task.spawn(() => {
+				task.wait(2);
+				this.enemyModel.Destroy();
+				this.onDeath.Fire();
+			});
+		});
 	}
 
 	public update(dt: number): void {

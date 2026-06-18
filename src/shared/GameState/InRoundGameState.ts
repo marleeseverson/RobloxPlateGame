@@ -4,6 +4,8 @@ import type { GameStateMachine } from "./GameStateMachine";
 import { playingTeam } from "shared/teams";
 import { Players } from "@rbxts/services";
 import Remotes from "shared/remotes";
+import ToolService from "shared/ToolService/ToolService";
+import { ToolType } from "shared/ToolService/ToolType";
 
 export class InRoundGameState extends BaseGameState {
 	private timePassedInState: number;
@@ -15,6 +17,10 @@ export class InRoundGameState extends BaseGameState {
 
 	onEnter(): void {
 		//print("In Round Entered");
+		print("Giving tools");
+		for (const player of Players.GetPlayers()) {
+			ToolService.givePlayerTool(player, ToolType.Sword);
+		}
 	}
 	onUpdate(dt: number): void {
 		this.timePassedInState += dt;

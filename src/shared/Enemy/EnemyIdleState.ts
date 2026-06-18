@@ -24,7 +24,7 @@ export class EnemyIdleState implements IEnemyState {
 
 	onGetNextState(): IEnemyState {
 		if (this.timeInState >= this.idleDuration) {
-			print("Idle State duration complete, transitioning to next state");
+			//print("Idle State duration complete, transitioning to next state");
 			return this.currentEnemyStateMachine.getPatrolState();
 		}
 		const nearestPlayerDistance = this.currentEnemyStateMachine.getNearestPlayerDistance();

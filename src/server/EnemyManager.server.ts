@@ -1,11 +1,13 @@
 import { Signals } from "shared/signals";
 import { EnemyIdleState } from "../shared/Enemy/EnemyIdleState";
 import { EnemyStateMachine } from "../shared/Enemy/EnemyStateMachine";
+import { Workspace } from "@rbxts/services";
 
 const ServerStorage = game.GetService("ServerStorage");
 const RunService = game.GetService("RunService");
 const enemyPrefab = ServerStorage.WaitForChild("Enemy") as Model;
 const spawnEffect = ServerStorage.WaitForChild("EnemySpawnBeam") as Model;
+const tempFolder = Workspace.WaitForChild("Temp") as Folder;
 
 const enemyCount = 1;
 
@@ -13,9 +15,18 @@ let enemies: EnemyStateMachine[] = [];
 
 function spawnEnemy(position: Vector3) {
 	const newEnemy = enemyPrefab.Clone();
-	newEnemy.Parent = game.Workspace;
+	newEnemy.Parent = tempFolder;
 	newEnemy.PivotTo(new CFrame(position));
 	const enemyStateMachine = new EnemyStateMachine(newEnemy);
+	enemyStateMachine.onDeath.Connect(() => {
+		for (let i = 0; i < enemies.size(); i++) {
+			if (enemyStateMachine === enemies[i]) {
+				enemies.remove(i);
+				print(enemies);
+				break;
+			}
+		}
+	});
 	enemies.push(enemyStateMachine);
 }
 

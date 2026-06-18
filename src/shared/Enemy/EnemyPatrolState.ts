@@ -26,7 +26,7 @@ export class EnemyPatrolState implements IEnemyState {
 	}
 	onUpdate(dt: number): void {
 		this.timeInState += dt;
-		print("Nearest player distance: " + this.currentEnemyStateMachine.getNearestPlayerDistance());
+		//print("Nearest player distance: " + this.currentEnemyStateMachine.getNearestPlayerDistance());
 		if (!this.isMoving) {
 			this.moveToRandomPoint();
 		}
@@ -80,7 +80,7 @@ export class EnemyPatrolState implements IEnemyState {
 			const waypoints = path.GetWaypoints();
 			for (let i = 0; i < waypoints.size(); i++) {
 				if (this.patrolCancelled) {
-					print("Patrol cancelled, stopping movement");
+					//print("Patrol cancelled, stopping movement");
 					return;
 				}
 				const waypoint = waypoints[i];
@@ -91,7 +91,7 @@ export class EnemyPatrolState implements IEnemyState {
 				const reached = humanoid.MoveToFinished.Wait();
 			}
 
-			print("Reached patrol target");
+			//print("Reached patrol target");
 			this.reachedTarget = true;
 		});
 	}

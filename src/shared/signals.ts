@@ -4,6 +4,8 @@ import { BaseEvent } from "./Events/BaseEvent";
 import { EventStateType } from "./EventService/EventStateType";
 import { GameStateType } from "shared/GameState/GameStateType";
 import { Plate } from "./plate";
+import { ToolData } from "./ToolService/ToolData";
+import { ToolType } from "./ToolService/ToolType";
 
 const OnPlayerDeath = new Signal<(player: Player) => void>();
 const OnGameStateChanged = new Signal<(newGameStateType: GameStateType) => void>();
@@ -21,4 +23,11 @@ export const Signals = {
 	RequestRandomEvent,
 	RequestRandomPlates,
 	SpawnEnemy,
+};
+
+const OnPlayerInventoryUpdated = new Signal<(inventory: ToolData[]) => void>();
+const OnPlayerSelectedItemUpdated = new Signal<(newSelectedTool: ToolData) => void>();
+export const ClientSignals = {
+	OnPlayerInventoryUpdated,
+	OnPlayerSelectedItemUpdated,
 };

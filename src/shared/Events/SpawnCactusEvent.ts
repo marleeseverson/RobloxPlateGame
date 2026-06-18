@@ -7,6 +7,7 @@ export class SpawnCactusEvent extends BaseEvent {
 	private cactusTemplate = ServerStorage.WaitForChild("EventItems").WaitForChild("Cactus") as Model;
 	private spawnLowerOffset = 5;
 	private riseTime = 3;
+	private tempFolder = Workspace.WaitForChild("Temp") as Folder;
 	constructor() {
 		super(EventType.Plate, "Cactus", 1);
 	}
@@ -20,7 +21,7 @@ export class SpawnCactusEvent extends BaseEvent {
 		if (primaryPart) {
 			primaryPart.Anchored = true;
 		}
-		cactus.Parent = Workspace;
+		cactus.Parent = this.tempFolder;
 
 		cactus.PivotTo(new CFrame(spawnPosition));
 
