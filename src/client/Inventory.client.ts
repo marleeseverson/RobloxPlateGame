@@ -59,7 +59,7 @@ function listenToTool(toolData: ToolData) {
 		ClientSignals.OnPlayerSelectedItemUpdated.Fire(undefined as any);
 	});
 	toolData.tool.Activated.Connect(() => {
-		if (toolData.usesLeft <= 0) {
+		if (toolData.usesLeft <= 1) {
 			print("Break tool");
 			deleteTool(toolData);
 		}

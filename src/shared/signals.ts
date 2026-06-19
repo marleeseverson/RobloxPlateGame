@@ -6,6 +6,7 @@ import { GameStateType } from "shared/GameState/GameStateType";
 import { Plate } from "./plate";
 import { ToolData } from "./ToolService/ToolData";
 import { ToolType } from "./ToolService/ToolType";
+import { IEnemyConfig } from "./Enemy/EnemyTypes/IEnemyConfig";
 
 const OnPlayerDeath = new Signal<(player: Player) => void>();
 const OnGameStateChanged = new Signal<(newGameStateType: GameStateType) => void>();
@@ -13,7 +14,7 @@ const OnEventChanged = new Signal<(newEvent: BaseEvent) => void>();
 const OnEventStateChanged = new Signal<(newEventStateType: EventStateType) => void>();
 const RequestRandomEvent = new Signal<(callback: (newEvent: BaseEvent) => void) => void>();
 const RequestRandomPlates = new Signal<(count: number, callback: (plates: Plate[]) => void) => void>();
-const SpawnEnemy = new Signal<(spawnLocation: Vector3) => void>();
+const SpawnEnemy = new Signal<(spawnLocation: Vector3, enemyConfig: IEnemyConfig) => void>();
 
 export const Signals = {
 	OnPlayerDeath,

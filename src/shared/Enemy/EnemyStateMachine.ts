@@ -5,6 +5,7 @@ import Signal = require("@rbxts/signal");
 import { EnemyChaseState } from "./EnemyChaseState";
 import { EnemyAnimationType } from "./EnemyAnimationTypes";
 import { EnemyAttackState } from "./EnemyAttackState";
+import { IEnemyConfig } from "./EnemyTypes/IEnemyConfig";
 
 const Players = game.GetService("Players");
 
@@ -17,9 +18,10 @@ export class EnemyStateMachine {
 	private chaseState: EnemyChaseState;
 	private attackState: EnemyAttackState;
 	private enemyModel: Model;
+	private animator: Animator;
 	private currentAnimationTrack: AnimationTrack;
 
-	constructor(enemyModel: Model) {
+	constructor(enemyConfig: IEnemyConfig, enemyModel: Model) {
 		this.enemyModel = enemyModel;
 		this.idleState = new EnemyIdleState(this);
 		this.patrolState = new EnemyPatrolState(this);
@@ -27,6 +29,7 @@ export class EnemyStateMachine {
 		this.attackState = new EnemyAttackState(this);
 		this.currentState = undefined as any;
 		this.currentAnimationTrack = undefined as any;
+		this.animator = this.getHumanoid().WaitForChild("Animator") as Animator;
 		this.tryTransitionToNextState(this.idleState);
 
 		this.getHumanoid().Died.Connect(() => {
@@ -140,8 +143,7 @@ export class EnemyStateMachine {
 		}
 		const animation = new Instance("Animation") as Animation;
 		animation.AnimationId = id;
-		const animator = this.getHumanoid().WaitForChild("Animator") as Animator;
-		const track = animator?.LoadAnimation(animation);
+		const track = this.animator?.LoadAnimation(animation);
 		this.currentAnimationTrack = track;
 		track?.Play();
 	}
