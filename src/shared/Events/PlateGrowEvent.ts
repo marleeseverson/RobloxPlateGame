@@ -2,10 +2,10 @@ import { Plate } from "shared/plate";
 import { BaseEvent, EventType } from "./BaseEvent";
 import { TweenService } from "@rbxts/services";
 
-export class PlateShrinkEvent extends BaseEvent {
+export class PlateGrowEvent extends BaseEvent {
 	private studAmount: number;
 	constructor(studAmount: number) {
-		super(EventType.Plate, "Plate shrink", 2);
+		super(EventType.Plate, "Plate grow", 1);
 		this.studAmount = studAmount;
 	}
 
@@ -17,13 +17,7 @@ export class PlateShrinkEvent extends BaseEvent {
 		}
 		const originalScale = plate.getOriginalScale();
 		const currentSize = originalScale * plate.getScale();
-		const newScale = (currentSize - this.studAmount) / plate.getOriginalScale();
-
-		if (newScale < 0) {
-			plate.setScale(0.0001);
-			plateModel.ScaleTo(0.00001);
-			return;
-		}
+		const newScale = (currentSize + this.studAmount) / plate.getOriginalScale();
 
 		plate.setScale(newScale);
 

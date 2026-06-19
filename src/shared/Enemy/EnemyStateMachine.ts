@@ -29,7 +29,7 @@ export class EnemyStateMachine {
 		this.attackState = new EnemyAttackState(this);
 		this.currentState = undefined as any;
 		this.currentAnimationTrack = undefined as any;
-		this.animator = this.getHumanoid().WaitForChild("Animator") as Animator;
+		this.animator = this.getHumanoid().FindFirstChildOfClass("Animator") as Animator;
 		this.tryTransitionToNextState(this.idleState);
 
 		this.getHumanoid().Died.Connect(() => {

@@ -1,6 +1,6 @@
-import { ServerStorage } from "@rbxts/services";
+import { ReplicatedStorage } from "@rbxts/services";
 import { SwordEnemy } from "./SwordEnemy";
-const swordEnemyModel = ServerStorage.WaitForChild("Enemies").WaitForChild("SwordEnemy") as Model;
+const swordEnemyModel = ReplicatedStorage.WaitForChild("Enemies").WaitForChild("SwordEnemy") as Model;
 const swordEnemy = new SwordEnemy(swordEnemyModel);
 
 const EnemyList = {

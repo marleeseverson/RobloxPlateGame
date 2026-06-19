@@ -19,7 +19,7 @@ export class EnemyIdleState implements IEnemyState {
 	onEnter(): void {
 		//print("Entering Idle State");
 		this.timeInState = 0;
-		this.currentEnemyStateMachine.playAnimation(EnemyAnimationType.Idle);
+		//this.currentEnemyStateMachine.playAnimation(EnemyAnimationType.Idle);
 	}
 
 	onGetNextState(): IEnemyState {

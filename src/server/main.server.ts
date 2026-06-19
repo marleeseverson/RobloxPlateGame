@@ -3,7 +3,9 @@ import PlateService from "shared/PlateService";
 import ToolService = require("shared/ToolService/ToolService");
 import { Players } from "@rbxts/services";
 import { ToolType } from "shared/ToolService/ToolType";
+import EnemyList from "shared/Enemy/EnemyTypes/EnemyList";
 
+EnemyList.swordEnemy;
 EventService.init();
 ToolService.init();
 

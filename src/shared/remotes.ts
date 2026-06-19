@@ -16,6 +16,7 @@ const Remotes = Net.CreateDefinitions({
 	OnPlayerWin: Definitions.ServerToClientEvent<[playerName: string]>(),
 	OnPlateEventsFinalized: Definitions.ServerToClientEvent<[plateMode: Model[]]>(),
 	OnPlayerGivenItem: Definitions.ServerToClientEvent<[toolType: ToolType, tool: Tool]>(),
+	OnPlateBecomesTrampoline: Definitions.ServerToClientEvent<[platePart: BasePart]>(),
 });
 
 export default Remotes;

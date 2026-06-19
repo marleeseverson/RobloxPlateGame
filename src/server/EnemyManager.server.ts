@@ -15,10 +15,16 @@ const enemyCount = 1;
 let enemies: EnemyStateMachine[] = [];
 
 function spawnEnemy(position: Vector3, enemyConfig: IEnemyConfig) {
+	let t = os.clock();
 	const newEnemy = enemyConfig.model.Clone();
+	print("clone", os.clock() - t);
+	t = os.clock();
 	newEnemy.Parent = tempFolder;
 	newEnemy.PivotTo(new CFrame(position));
+	print("parent+pivot", os.clock() - t);
+	t = os.clock();
 	const enemyStateMachine = new EnemyStateMachine(enemyConfig, newEnemy);
+	print("statemachine ctor", os.clock() - t);
 	enemyStateMachine.onDeath.Connect(() => {
 		for (let i = 0; i < enemies.size(); i++) {
 			if (enemyStateMachine === enemies[i]) {
@@ -28,6 +34,7 @@ function spawnEnemy(position: Vector3, enemyConfig: IEnemyConfig) {
 			}
 		}
 	});
+	print("push", os.clock() - t);
 	enemies.push(enemyStateMachine);
 }
 
@@ -41,6 +48,7 @@ function spawnEnemyEffect(position: Vector3): Model {
 Signals.SpawnEnemy.Connect((location, config) => {
 	if (location) {
 		task.spawn(() => {
+			//print("handler entered", os.clock());
 			const spawnEffectLocation = new Vector3(location.X, location.Y - 5, location.Z);
 			const effect = spawnEnemyEffect(spawnEffectLocation);
 			task.wait(5);
@@ -51,7 +59,7 @@ Signals.SpawnEnemy.Connect((location, config) => {
 	}
 });
 
-Signals.SpawnEnemy.Fire(new Vector3(0, 3, 20), EnemyList.swordEnemy);
+//Signals.SpawnEnemy.Fire(new Vector3(0, 3, 20), EnemyList.swordEnemy);
 
 RunService.Heartbeat.Connect((dt) => {
 	if (enemies) {
