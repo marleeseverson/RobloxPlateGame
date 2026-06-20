@@ -15,7 +15,7 @@ export class PlateSphere extends BaseEvent {
 		part.Shape = Enum.PartType.Ball;
 		part.Size = new Vector3(currentSize, currentSize, currentSize);
 	}
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 }

@@ -20,6 +20,7 @@ export class EventStateMachine {
 	private waitingState: WaitingEventState;
 	private currentEvent: BaseEvent;
 	private currentPlateTargets: Plate[];
+	private currentPlayerTargets: Player[];
 	private plateModels: Model[];
 
 	constructor() {
@@ -31,6 +32,7 @@ export class EventStateMachine {
 		this.currentEventState = undefined as any;
 		this.currentEvent = undefined as any;
 		this.currentPlateTargets = [];
+		this.currentPlayerTargets = [];
 		this.plateModels = [];
 		this.start();
 	}
@@ -85,8 +87,12 @@ export class EventStateMachine {
 	public getCurrentEvent(): BaseEvent {
 		return this.currentEvent;
 	}
-	public getCurrentTargets(): Plate[] {
+	public getCurrentPlateTargets(): Plate[] {
 		return this.currentPlateTargets;
+	}
+
+	public getCurrentPlayerTargets(): Player[] {
+		return this.currentPlayerTargets;
 	}
 
 	public setEvent(newEvent: BaseEvent) {
@@ -94,6 +100,11 @@ export class EventStateMachine {
 	}
 	public setPlateTargets(plateTargets: Plate[]) {
 		this.currentPlateTargets = plateTargets;
+		const players: Player[] = [];
+		for (let x = 0; x < plateTargets.size(); x++) {
+			players.push(plateTargets[x].getPlayer());
+		}
+		this.currentPlayerTargets = players;
 		this.fireInfoSelectedEvent();
 	}
 	public getCurrentStateType(): EventStateType {
@@ -104,7 +115,6 @@ export class EventStateMachine {
 			Remotes.Server.Get("OnEventAndPlatesSelected").SendToAllPlayers(
 				this.currentEvent.getName(),
 				this.getTargetNames(),
-
 				this.getPlateModels(),
 			);
 		}
@@ -112,7 +122,7 @@ export class EventStateMachine {
 
 	public getPlateModels(): Model[] {
 		const models: Model[] = [];
-		for (const plate of this.getCurrentTargets()) {
+		for (const plate of this.getCurrentPlateTargets()) {
 			models.push(plate.getModel());
 		}
 		return models;
@@ -120,7 +130,7 @@ export class EventStateMachine {
 
 	private getTargetNames(): string[] {
 		const names = [] as string[];
-		for (const plate of this.getCurrentTargets()) {
+		for (const plate of this.getCurrentPlateTargets()) {
 			names.push(plate.getPlayer().Name);
 		}
 		return names;

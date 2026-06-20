@@ -4,6 +4,7 @@ import type { EventStateMachine } from "./EventStateMachine";
 import { EventStateType } from "./EventStateType";
 import { Signals } from "shared/signals";
 import Remotes from "shared/remotes";
+import { EventType } from "shared/Events/BaseEvent";
 
 export class FiringEventState extends BaseEventState {
 	private baseFiringTime = 0.5;
@@ -22,11 +23,15 @@ export class FiringEventState extends BaseEventState {
 		this.timePassed += dt;
 		if (this.timePassed >= this.baseFiringTime) {
 			const event = this.stateMachine.getCurrentEvent();
-			const targetPlate = this.stateMachine.getCurrentTargets()[this.targetIndex];
+			const targetPlate = this.stateMachine.getCurrentPlateTargets()[this.targetIndex];
 			this.timePassed = 0;
-			event.triggerPlateEvent(targetPlate);
+			if (event.getType() === EventType.Plate) {
+				event.triggerPlateEvent(targetPlate);
+			} else {
+				event.triggerPlayerEvent(targetPlate.getPlayer());
+			}
 			this.targetIndex++;
-			if (this.stateMachine.getCurrentTargets().size() <= this.targetIndex) {
+			if (this.stateMachine.getCurrentPlateTargets().size() <= this.targetIndex) {
 				this.doneFiring = true;
 			}
 		}

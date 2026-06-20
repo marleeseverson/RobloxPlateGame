@@ -27,7 +27,7 @@ export class InRoundGameState extends BaseGameState {
 	}
 	getNextState(): BaseGameState {
 		const numPlayersLeft = playingTeam.GetPlayers().size();
-		print("num players left : " + numPlayersLeft);
+		//print("num players left : " + numPlayersLeft);
 		if (numPlayersLeft === 1) {
 			const playerName = playingTeam.GetPlayers()[0].Name;
 			Remotes.Server.Get("OnPlayerWin").SendToAllPlayers(playerName);

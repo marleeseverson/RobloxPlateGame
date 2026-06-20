@@ -44,7 +44,7 @@ export class SpawnCactusEvent extends BaseEvent {
 			this.connectDamage(cactus);
 		}
 	}
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 

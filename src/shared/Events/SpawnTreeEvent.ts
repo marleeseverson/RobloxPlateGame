@@ -65,7 +65,7 @@ export class SpawnTreeEvent extends BaseEvent {
 		}
 	}
 
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 }

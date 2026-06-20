@@ -25,5 +25,5 @@ export abstract class BaseEvent {
 	}
 
 	public abstract triggerPlateEvent(plates: Plate): void;
-	public abstract triggerPlayerEvent(players: Player[]): void;
+	public abstract triggerPlayerEvent(players: Player): void;
 }

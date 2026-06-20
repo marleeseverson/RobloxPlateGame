@@ -18,7 +18,7 @@ export class PlateStretchEvent extends BaseEvent {
 		const tween = TweenService.Create(primaryPart, tweenInfo, { Size: targetSize });
 		tween.Play();
 	}
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 }

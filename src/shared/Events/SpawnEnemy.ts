@@ -17,7 +17,7 @@ export class SpawnEnemy extends BaseEvent {
 		const spawnPosition = new Vector3(platePos.X, platePos.Y + this.spawnUpperOffset, platePos.Z);
 		Signals.SpawnEnemy.Fire(spawnPosition, EnemyList.swordEnemy);
 	}
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 }

@@ -29,7 +29,7 @@ export class PlateGrowEvent extends BaseEvent {
 		const tween = TweenService.Create(part, tweenInfo, { Size: targetSize });
 		tween.Play();
 	}
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 }

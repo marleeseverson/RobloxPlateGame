@@ -20,7 +20,7 @@ export class RotatePlateOnceEvent extends BaseEvent {
 		const tween = TweenService.Create(primaryPart, tweenInfo, { CFrame: targetCFrame });
 		tween.Play();
 	}
-	public triggerPlayerEvent(players: Player[]): void {
+	public triggerPlayerEvent(players: Player): void {
 		// Do nothing
 	}
 }
