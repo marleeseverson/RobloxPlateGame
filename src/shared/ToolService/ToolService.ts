@@ -16,6 +16,7 @@ class ToolService {
 		const toolTemplate = this.getToolDataFromType(toolType).tool;
 		const tool = toolTemplate.Clone();
 		tool.Parent = backpack;
+		print("Tool event fired");
 		Remotes.Server.Get("OnPlayerGivenItem").SendToPlayer(player, toolType, tool);
 	}
 

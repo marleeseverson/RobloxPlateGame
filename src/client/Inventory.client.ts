@@ -43,6 +43,7 @@ function connectToPlayerToolRemote() {
 		toolData.tool = tool;
 		listenToTool(toolData);
 		tools.push(toolData);
+		print("PLayer inventory update");
 		ClientSignals.OnPlayerInventoryUpdated.Fire(tools);
 	});
 }

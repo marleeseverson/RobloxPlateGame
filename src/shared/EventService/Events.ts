@@ -4,7 +4,9 @@ import { PlateShrinkEvent } from "shared/Events/PlateShrinkEvent";
 import { PlateSphere } from "shared/Events/PlateSphere";
 import { PlateStretchEvent } from "shared/Events/PlateStretchEvent";
 import { PlateTrampolineEvent } from "shared/Events/PlateTrampolineEvent";
+import { GivePlayerSword } from "shared/Events/PlayerEvents/GivePlayerSword";
 import { PlayerGrowEvent } from "shared/Events/PlayerEvents/PlayerGrowEvent";
+import { PlayerShrinkEvent } from "shared/Events/PlayerEvents/PlayerShrink";
 import { RotatePlateOnceEvent } from "shared/Events/RotatePlateOnce";
 import { PlateSlipperyEvent } from "shared/Events/SlipperyPlateEvent";
 import { SpawnCactusEvent } from "shared/Events/SpawnCactusEvent";
@@ -27,5 +29,23 @@ const spawnMeteor = new SpawnMeteorEvent();
 const icePlateEvent = new PlateSlipperyEvent();
 //Player =======================================-
 const playerGrowEvent = new PlayerGrowEvent();
+const playerShrinkEvent = new PlayerShrinkEvent();
+const givePlayerSword = new GivePlayerSword();
 
-export const Events = [playerGrowEvent, icePlateEvent];
+export const TestEvents = [playerShrinkEvent, givePlayerSword];
+
+export const Events = [
+	plateShrinkEvent,
+	plateRiseEvent,
+	spawnCactusEvent,
+	spawnEnemyEvent,
+	makePlateSphere,
+	rotateOnceEvent,
+	plateStretch,
+	plateGrowEvent,
+	trampolineEvent,
+	spawnTreeEvent,
+	spawnMeteor,
+	playerGrowEvent,
+	icePlateEvent,
+];

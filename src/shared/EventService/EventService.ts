@@ -6,7 +6,7 @@ import PlateService from "../PlateService";
 import { Signals } from "../signals";
 import { EventStateMachine } from "./EventStateMachine";
 import { GameStateType } from "shared/GameState/GameStateType";
-import { Events } from "./Events";
+import { Events, TestEvents } from "./Events";
 
 class EventService {
 	private eventStateMachine: EventStateMachine;
@@ -18,7 +18,7 @@ class EventService {
 	constructor() {
 		this.eventStateMachine = new EventStateMachine();
 		this.currentEvent = undefined as any;
-		this.events = Events;
+		this.events = TestEvents;
 		this.currentPlateTargets = [];
 		this.currentGameStateType = GameStateType.Intermission;
 
